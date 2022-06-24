@@ -1,1 +1,95 @@
-/* TODO Add site wide styles */
+body {
+    width: 1240px;
+    margin: auto;
+}
+
+
+
+
+
+
+
+/* Login modal form */
+.loginFormContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    color: black;
+    padding: 5px;
+    width: 250px;
+    height: 250px;
+  }
+
+  .loginFormContainer > h2 {
+   font-family: 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+   color: #ff7c3b;
+
+  }
+
+  .loginForm {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+  #username {
+      border-radius: 5px;
+      margin-bottom: 10px;
+      padding: 3px;
+  }
+
+  #password {
+      border-radius: 5px;
+      margin-bottom: 10px;
+      padding: 3px;
+  }
+
+  #modal-content {
+      border-radius: 10px;
+      border: 2px solid #ff7c3b;
+      box-shadow: 5px 5px 2px #ff7c3b;
+  }
+
+
+/* Sign Up modal form */
+.signupFormContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    color: black;
+    padding: 5px;
+    width: 250px;
+    height: 375px;
+  }
+
+.signupFormContainer > h2 {
+   font-family: 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+   color: #ff7c3b;
+   margin-bottom: 10px;
+  }
+
+.signupForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#email {
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 3px;
+}
+
+.error-list {
+  color: black;
+  font-size: 14px;
+  padding-left: 8px;
+  padding-bottom: 12px;
+  font-family: 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  }
