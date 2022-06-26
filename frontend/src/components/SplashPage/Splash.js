@@ -1,13 +1,17 @@
 import React from "react";
-import TopImage from "./TopImage/TopImage";
+import SearchArea from "./SearchBar";
+import TopBox from "./TopBox/TopBox";
 
 
 const Splash = () => {
 
+    return (
+        <div className="topLine">
+            <TopBox />
+            <SearchArea />
+        </div>
+    )
+
 }
 
-return (
-    <div className="wholeContent">
-        <TopImage />
-    </div>
-)
+export default Splash;

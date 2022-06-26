@@ -1,11 +1,105 @@
 body {
     width: 1240px;
     margin: auto;
+    font-family: 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-color: #f2f2f2;
 }
 
+.button {
+    background-color: #89c7e7;
+    border: 2px solid black;
+    box-shadow: 2px 2px black;
+    color: white;
+    border-radius: 3px;
+    padding: 6px;
+    margin-left: 10px;
+  }
+
+  .button:active {
+    background: #89c7e7;
+    box-shadow: inset 0px 0px 4px black;
+     outline: none;
+  }
+
+  .button:hover {
+    cursor: pointer;
+  }
 
 
+/* Splash Page - top box*/
 
+.topLine {
+    border-top: 4px solid #fff67a;
+    width: 1240px;
+  }
+
+.topImageContainer {
+    display: flex;
+    background-image: url("./images/1.png");
+    background-position-x: center;
+    background-position-y: center;
+    background-repeat: no-repeat;
+    background-color: #89c7e7;
+    height: 450px;
+    justify-content: center;
+    align-items: center;
+}
+
+.navButtons {
+    position: absolute;
+    display: flex;
+    transform: translate(450px, -200px);
+    justify-content: space-between;
+    width: 150px;
+  }
+
+.Title {
+    transform: translate(450px, -150px);
+    font-size: 50px;
+    color: #fff67a;
+    text-shadow: 2px 2px 3px black;
+}
+
+#body-text {
+    transform: translate(110px, 155px);
+    color: #fff67a;
+    font-size: 20px;
+    font-weight: 900;
+}
+
+#p-text {
+    transform: translate(-150px, 155px);
+    color: #fff67a;
+    font-size: 20px;
+    font-weight: 900;
+}
+
+/* Splash page - search bar */
+.searchContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    background-color: white;
+}
+
+.search {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 600px;
+    margin-right: 14px;
+}
+
+  #searchHome {
+    background-color: #f2f2f2;
+    width: 600px;
+    padding: 0 12px;
+    height: 46px;
+    border-radius: 8px;
+}
 
 
 
@@ -24,7 +118,7 @@ body {
 
   .loginFormContainer > h2 {
    font-family: 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-   color: #ff7c3b;
+   color: #89c7e7;
    text-shadow: 1px 1px 1px black;
    margin-bottom: 10px;
   }
@@ -50,8 +144,8 @@ body {
 
   #modal-content {
       border-radius: 10px;
-      border: 2px solid #ff7c3b;
-      box-shadow: 5px 5px 2px #ff7c3b;
+      border: 2px solid #89c7e7;
+      box-shadow: 5px 5px 2px #89c7e7;
   }
 
 
@@ -70,7 +164,7 @@ body {
 
 .signupFormContainer > h2 {
    font-family: 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-   color: #ff7c3b;
+   color: #89c7e7;
    margin-bottom: 10px;
    text-shadow: 1px 1px 1px black;
   }
