@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import * as sessionActions from "../../store/session";
+import * as sessionActions from "../../../../store/session";
 import { useDispatch } from "react-redux";
 
 
@@ -45,7 +45,7 @@ function LoginForm() {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-        <button type="submit">Login</button>
+        <button className="button" type="submit">Login</button>
       </form >
     </div>
   );
