@@ -11,7 +11,7 @@ function SearchArea() {
         ></input>
       </label>
       or
-      <button className="button" id="uploadYourOwn">
+      <button className="button">
         Upload your own
       </button>
     </div>

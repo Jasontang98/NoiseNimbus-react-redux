@@ -8,7 +8,6 @@ const Splash = () => {
     return (
         <div className="topLine">
             <TopBox />
-            <SearchArea />
         </div>
     )
 
