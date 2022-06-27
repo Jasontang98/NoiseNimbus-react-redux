@@ -4,28 +4,26 @@ import { Redirect, NavLink } from "react-router-dom";
 
 // import Navigation from "../Navigation";
 
-function SongsPage({ oneSong }) {
+function SongsPage({ playSong }) {
     const dispatch = useDispatch();
     const sessionUser = useSelector((state) => state.session.user);
     const songs = useSelector((state) => state.songFile);
-    // const [selectedPlaylist, setSelectedPlaylist] = useState("");
+
 
     if (!sessionUser) return <Redirect to='/' />
 
 
     return (
+
         <div>
-            <h2>HELLO</h2>
+            <div>
+            {Object.values(songs).map((singleSong) => {
+                return (
+                    <div key={singleSong.id} onClick={(e) => { playSong(singleSong) }}>{singleSong.title}</div>
+                )
+            })}
+            </div>
         </div>
-    //     <div>
-    //         {Object.values(songs).map((singleSong) => {
-    //             return (
-    //                 // <div key={singleSong.id}>
-    //                 // </div>
-    //                 <div key={singleSong.id} onClick={(e) => {oneSong(singleSong)}}></div>
-    //             )
-    //         })}
-    //     </div>
     );
 }
 
