@@ -1,3 +1,121 @@
+import { csrfFetch } from "./csrf";
+
+const PLAY_SONGS = "/api/PLAYSONGS";
+const ADD_SONG = "/api/ADDSONG";
+const EDIT_SONG = "/api/EDITSONG";
+const DELETE_SONG = "/api/DELETESONG";
+
+const playSongs = (songs) => ({
+    type: PLAY_SONGS,
+    songs,
+  });
+
+  const addSong = (songFile) => ({
+    type: ADD_SONG,
+    songFile,
+  });
+
+  const editSong = (song) => ({
+    type: EDIT_SONG,
+    song,
+  });
+
+  const deleteSong = (song) => ({
+    type: DELETE_SONG,
+    song,
+  });
+
+
+  export const playAllSongs = () => async (dispatch) => {
+    const response = await csrfFetch("/api/song/Songs", {
+        method:"GET",
+    });
+
+    if (response.ok) {
+        const songs = await response.json();
+        dispatch(playSongs(songs));
+        return songs;
+    };
+  };
+
+
+  export const addNewSong = (songFile) => async (dispatch) => {
+    const formData = new FormData();
+    console.log(songFile.file);
+    formData.append('song', songFile.file);
+    formData.append('fileName', songFile.fileName);
+    formData.append('userId', songFile.userId);
+
+    const response = await csrfFetch("/api/song/Songs", {
+        method:"POST",
+        headers: {
+            "Content-Type": "multipart/form-data"
+        },
+        body:formData
+    });
+
+    if (response.ok) {
+        const newSong = await response.json();
+        dispatch(addSong(newSong));
+        dispatch(playAllSongs());
+        return true;
+    };
+  };
+
+
+  export const editNewSong = (songEdit) => async (dispatch) => {
+    songEdit = JSON.stringify(songEdit);
+
+    const response = await csrfFetch("/api/song/Songs", {
+        method: "PUT",
+        headers: { "ContentType": "application/json" },
+        body: songEdit,
+    });
+
+    if (response.ok) {
+        const newSongEdit = await response.json();
+        dispatch(editSong(newSongEdit));
+        return true;
+    };
+  };
+
+  // export const deleteCurrentSong = (song) = async (dispatch) => {
+  //   const response = await csrfFetch(`/api/song/Songs/${song.id}`, {
+  //       method: "DELETE"
+  //   });
+
+  //   if (response.ok) {
+  //       dispatch(deleteSong(song));
+  //   }
+  // };
+
+  const initialState = {};
+
+  const songReducer = (state = initialState, action) => {
+    const newState = {...state};
+    switch (action.type) {
+        case PLAY_SONGS:
+            action.songs.forEach((song) => (newState[song.id]= song));
+            return newState;
+
+        case ADD_SONG:
+            return {...state, [action.songFile.id]: {...action.songFile}};
+
+        case EDIT_SONG:
+            return {...state, [action.song.id]: {...action.song}};
+
+        case DELETE_SONG:
+            delete newState[action.song.id];
+            return newState;
+        default:
+            return state;
+    };
+  };
+
+
+  export default songReducer;
+
+
 //todo define types
 // CRUD
 //CREATE

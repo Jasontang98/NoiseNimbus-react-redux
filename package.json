@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/Jasontang98/NoiseNimbus-react-redux/issues"
   },
-  "homepage": "https://github.com/Jasontang98/NoiseNimbus-react-redux#readme"
+  "homepage": "https://github.com/Jasontang98/NoiseNimbus-react-redux#readme",
+  "dependencies": {
+    "react-h5-audio-player": "^3.8.4"
+  }
 }
