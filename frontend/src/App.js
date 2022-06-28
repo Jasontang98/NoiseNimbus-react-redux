@@ -18,12 +18,9 @@ function App() {
   const [isLoaded, setIsLoaded] = useState(false);
 
   const [song, setSong] = useState("");
-  const [playlist, setPlaylist] = useState([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [currentSongName, setCurrentSongName] = useState(
-    "No Songs Currently Playing"
-  );
-  const player = useRef();
+  const [currentSong, setCurrentSong] = useState("");
+
+  const musicPlayer = useRef();
 
   useEffect(() => {
     dispatch(playAllSongs());
@@ -31,32 +28,31 @@ function App() {
   }, [dispatch]);
 
   const playSong = async (singleSong) => {
-    setCurrentSongName(singleSong.title);
+    setCurrentSong(singleSong.title);
     await setSong(`${singleSong.url}`);
-    setPlaylist([]);
-    player.current.song.current.play(song);
+    musicPlayer.current.audio.current.play(song);
   };
 
   return (
-
-      isLoaded && (
-        <Switch>
+    isLoaded && (
+      <Switch>
           <Route exact path='/'>
+            <Navigation isLoaded={isLoaded} />
             <Splash playSong={playSong}/>
           </Route>
           <Route path='/songs'>
+            <Navigation />
             <SongsPage playSong={playSong}/>
             <AudioPlayer
-            id="musicPlayer"
-            src={`${song}`}
-            onPlay={(e) => console.log("Playing")}
-            ref={player}
+            ref={musicPlayer}
             volume={0.05}
+            onPlay={(e) => console.log(`${currentSong}`)}
+            src={`${song}`}
             layout="horizontal-reverse"
             showSkipControls={true}
             showJumpControls={false}
             autoPlayAfterSrcChange={true}
-            header={`Playing: ${currentSongName}`}
+            header={`Playing: ${currentSong}`}
             customAdditionalControls={[]}
           />
           </Route>
