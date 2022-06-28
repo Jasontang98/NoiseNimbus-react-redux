@@ -45,14 +45,14 @@ function App() {
             <SongsPage playSong={playSong}/>
             <AudioPlayer
             ref={musicPlayer}
-            volume={0.05}
+            volume={0.1}
             onPlay={(e) => console.log(`${currentSong}`)}
             src={`${song}`}
             layout="horizontal-reverse"
             showSkipControls={true}
             showJumpControls={false}
             autoPlayAfterSrcChange={true}
-            header={`Playing: ${currentSong}`}
+            header={`${currentSong}`}
             customAdditionalControls={[]}
           />
           </Route>

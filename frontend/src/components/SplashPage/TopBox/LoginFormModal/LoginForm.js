@@ -11,7 +11,7 @@ function LoginForm() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
-  if (sessionUser) return <Redirect to="/songs" />;
+  if (sessionUser) return <Redirect to="/Songs" />;
 
   const handleDemoUser = async (e) => {
     e.preventDefault();
@@ -43,8 +43,8 @@ function LoginForm() {
         <h2>Login</h2>
         <form className='loginForm' onSubmit={handleSubmit}>
           <div className="error-list">
-            {errors.map((error, idx) => (
-              <div key={idx}>{error}</div>
+            {errors.map((error) => (
+              <div key={error}>{error}</div>
               ))}
         </div>
           <input
