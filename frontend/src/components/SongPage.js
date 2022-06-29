@@ -1,11 +1,10 @@
-import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Redirect, NavLink } from "react-router-dom";
+import React from "react";
+import { useSelector } from "react-redux";
+import { Redirect } from "react-router-dom";
 
 // import Navigation from "../Navigation";
 
 function SongsPage({ playSong }) {
-    const dispatch = useDispatch();
     const sessionUser = useSelector((state) => state.session.user);
     const songs = useSelector((state) => state.songFile);
 

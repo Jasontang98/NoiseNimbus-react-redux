@@ -12,6 +12,7 @@ import "react-h5-audio-player/lib/styles.css";
 import Splash from "./components/SplashPage/Splash";
 import SongsPage from "./components/SongPage";
 import UploadSong from "./components/UploadPage";
+import EditSong from "./components/EditSongPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -33,17 +34,33 @@ function App() {
     musicPlayer.current.audio.current.play(song);
   };
 
+
   return (
     isLoaded && (
+      <>
       <Switch>
           <Route exact path='/'>
             <Navigation isLoaded={isLoaded} />
             <Splash playSong={playSong}/>
           </Route>
-          <Route path='/songs'>
+          <Route exact path='/songs'>
             <Navigation />
             <SongsPage playSong={playSong}/>
-            <AudioPlayer
+          </Route>
+          <Route path="/upload">
+            <Navigation isLoaded={isLoaded} />
+            <UploadSong playSong={playSong} />
+          </Route>
+          <Route path="/songs/:id">
+            <Navigation isLoaded={isLoaded} />
+            <EditSong playSong={playSong}/>
+          </Route>
+          <Route >
+            Page Not Found
+          </Route>
+        </Switch>
+        <footer >
+           <AudioPlayer
             ref={musicPlayer}
             volume={0.1}
             onPlay={(e) => console.log(`${currentSong}`)}
@@ -55,14 +72,8 @@ function App() {
             header={`${currentSong}`}
             customAdditionalControls={[]}
           />
-          </Route>
-          <Route path="upload">
-            <UploadSong />
-          </Route>
-          <Route >
-            Page Not Found
-          </Route>
-        </Switch>
+        </footer>
+      </>
      )
   );
 }
