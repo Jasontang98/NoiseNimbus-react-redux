@@ -49,7 +49,7 @@ router.post('/Songs', singleMulterUpload('song'), validateSong, async (req,res) 
 
 router.put('/Songs', async(req, res) => {
     const { id, songTitle } = req.body;
-    console.log(req.body)
+    // console.log(req.body)
     const editSong = await db.Song.findByPk(id);
 
     const newSong = await editSong.update({

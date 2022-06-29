@@ -10,8 +10,9 @@ function EditSong() {
     const songId = useParams().id;
 
     const song = useSelector((state) => state.songFile[songId]);
-    // console.log(song)
+    console.log(song)
     const [songTitle, setSongTitle] = useState(`${song.title}`);
+    // const [url, setUrl] = useState(`${song.url}`);
 
     const history = useHistory();
 
@@ -43,6 +44,12 @@ function EditSong() {
                     value={songTitle}
                     onChange={(e) => setSongTitle(e.target.value)}
                 />
+                {/* <input
+                    type="file"
+                    name="song"
+                    onChange={url}
+                    accept=".mp3, .mp4"
+                /> */}
                 <button type="submit">Submit</button>
             </form>
             <button

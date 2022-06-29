@@ -6,6 +6,7 @@ const { setTokenCookie } = require('../../utils/auth');
 const { User } = require('../../db/models');
 const router = express.Router();
 
+
 const validateSignup = [
     check('email')
       .exists({ checkFalsy: true })
