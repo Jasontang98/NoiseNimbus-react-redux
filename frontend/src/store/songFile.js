@@ -27,7 +27,7 @@ const playSongs = (songs) => ({
 
 
   export const playAllSongs = () => async (dispatch) => {
-    const response = await csrfFetch("/api/song/Songs", {
+    const response = await csrfFetch("/api/songs", {
         method:"GET",
     });
 
@@ -45,7 +45,7 @@ const playSongs = (songs) => ({
     formData.append('fileName', songFile.fileName);
     formData.append('userId', songFile.userId);
 
-    const response = await csrfFetch("/api/song/Songs", {
+    const response = await csrfFetch("/api/songs", {
         method:"POST",
         headers: {
             "Content-Type": "multipart/form-data"
@@ -65,7 +65,7 @@ const playSongs = (songs) => ({
   export const editCurrentSong = (songEdit) => async (dispatch) => {
     songEdit = JSON.stringify(songEdit);
 
-    const response = await csrfFetch("/api/song/Songs", {
+    const response = await csrfFetch("/api/songs", {
         method: "PUT",
         headers: {"Content-Type": "application/json" },
         body: songEdit,
@@ -80,7 +80,7 @@ const playSongs = (songs) => ({
 
 
   export const deleteCurrentSong = (song) => async (dispatch) => {
-    const response = await csrfFetch(`/api/song/Songs/${song.id}`, {
+    const response = await csrfFetch(`/api/songs/${song.id}`, {
         method: "DELETE"
     });
 

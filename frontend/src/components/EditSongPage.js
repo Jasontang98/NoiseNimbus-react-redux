@@ -10,7 +10,7 @@ function EditSong() {
     const songId = useParams().id;
 
     const song = useSelector((state) => state.songFile[songId]);
-    console.log(song)
+    // console.log(song)
     const [songTitle, setSongTitle] = useState(`${song.title}`);
     // const [url, setUrl] = useState(`${song.url}`);
 

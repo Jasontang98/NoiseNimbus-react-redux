@@ -11,7 +11,7 @@ function LoginForm() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
-  if (sessionUser) return <Redirect to="/Songs" />;
+  if (sessionUser) return <Redirect to="/songs" />;
 
   const handleDemoUser = async (e) => {
     e.preventDefault();
