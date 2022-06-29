@@ -1,16 +1,19 @@
 import React, { useState } from "react";
 import * as sessionActions from "../../../../store/session";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector  } from "react-redux";
+import { Redirect } from "react-router-dom";
 
 
 function SignupForm() {
   const dispatch = useDispatch();
+  const sessionUser = useSelector((state) => state.session.user);
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
+  if (sessionUser) return <Redirect to="/songs" />;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -23,6 +26,9 @@ function SignupForm() {
         }
       );
     }
+    return setErrors([
+      "Confirm Password field must be the same as the Password field",
+    ]);
   };
 
   return (

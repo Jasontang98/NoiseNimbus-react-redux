@@ -24,10 +24,15 @@ router.get('/Songs', async (req,res) => {
 
 
 router.post('/Songs', singleMulterUpload('song'), validateSong, async (req,res) => {
-    const {title, userId} = req.body;
+    if (req.file.mimetype === "video/mp4" ||
+        req.file.mimetype === "video/mp3") {
+        }
     const url = await singlePublicFileUpload(req.file);
+    const songTitle = req.body.fileName;
+    const userId = req.body.userId;
+
     const song = await db.Song.build({
-        title,
+        title: songTitle,
         userId,
         url
     });
@@ -35,16 +40,20 @@ router.post('/Songs', singleMulterUpload('song'), validateSong, async (req,res) 
     if (song) {
         await song.save();
         return res.json(song);
-    };
+    } else {
+        const err = new Error("Invalid File Type");
+        next(err);
+    }
 });
 
 
 router.put('/Songs', async(req, res) => {
-    const { songId, title } = req.body;
-    const editSong = await db.Song.findByPk(songId);
+    const { id, songTitle } = req.body;
+    console.log(req.body)
+    const editSong = await db.Song.findByPk(id);
 
     const newSong = await editSong.update({
-        title
+        title: songTitle
     });
 
     if (newSong) {
@@ -55,6 +64,16 @@ router.put('/Songs', async(req, res) => {
 
 router.delete('/Songs/:id', async(req, res) => {
     const songId = req.params.id;
+
+    const associations = await db.SongPlaylist.findAll({
+        where: {
+            songId: songId
+        }
+    })
+
+    associations.forEach((association) => {
+        association.destroy()
+    })
 
     const deleteSong = await db.Song.findByPk(songId);
 

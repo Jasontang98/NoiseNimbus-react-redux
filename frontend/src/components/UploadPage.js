@@ -22,7 +22,7 @@ function UploadSong() {
             userId,
             fileName,
             file
-        }
+        };
         const createNewSong = await dispatch(addNewSong(payload)).catch(
             async (res) => {
                 const data = await res.json();
@@ -35,7 +35,7 @@ function UploadSong() {
         );
         if (createNewSong) {
             await dispatch(playAllSongs());
-            history.push('/Songs') //needs to be changed
+            history.push('/songs') //needs to be changed
         }
     };
 
@@ -44,28 +44,38 @@ function UploadSong() {
         setFile(uploadFile)
     }
 
+    // const addSong = document.getElementsByClassName("addSong");
+    // addSong.addEventListener("click", (e) => {
+    //     const form = document.getElementsByClassName("songForm");
+    //     if (form.style.display === "none") {
+    //         form.style.display = "block";
+    //     } else {
+    //         form.style.display = "none"
+    //     }
+    // })
+
     return (
         <div>
-            <form onSubmit={handleSubmit}>
-                {errors.map((error, idx) => (
-                    <div key={idx}>{error}</div>
+            <form className="songForm" onSubmit={handleSubmit}>
+                {errors.map((error) => (
+                    <div key={error}>{error}</div>
                 ))}
                 <label>
                     Song Title
                     <input
-                    type="text"
-                    value={fileName}
-                    required
-                    onChange={(e) => setFileName(e.target.value)}
+                        type="text"
+                        value={fileName}
+                        required
+                        onChange={(e) => setFileName(e.target.value)}
                     />
                 </label>
                 <div>
                     <div>Select a Song</div>
                     <input
-                    type="file"
-                    name="song"
-                    onChange={handleChange}
-                    accept=".mp3, .mp4"
+                        type="file"
+                        name="song"
+                        onChange={handleChange}
+                        accept=".mp3, .mp4"
                     />
                 </div>
                 <div>
@@ -74,6 +84,7 @@ function UploadSong() {
                     </button>
                 </div>
             </form>
+            {/* <button className="addSong" type="" >Add a Song</button> */}
         </div>
     );
 }

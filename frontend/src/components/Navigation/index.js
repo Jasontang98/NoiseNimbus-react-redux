@@ -26,6 +26,9 @@ function Navigation({ isLoaded }){
     <nav >
       <NavLink exact to="/" className='home-button'>Home</NavLink>
       {isLoaded && sessionLinks}
+      <NavLink to="/songs">Songs</NavLink>
+      <NavLink to="/upload">Upload</NavLink>
+      <NavLink to="/songs/1">Song 1</NavLink>
     </nav>
 
   );

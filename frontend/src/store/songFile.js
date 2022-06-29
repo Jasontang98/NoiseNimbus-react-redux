@@ -41,7 +41,6 @@ const playSongs = (songs) => ({
 
   export const addNewSong = (songFile) => async (dispatch) => {
     const formData = new FormData();
-    console.log(songFile.file);
     formData.append('song', songFile.file);
     formData.append('fileName', songFile.fileName);
     formData.append('userId', songFile.userId);
@@ -63,12 +62,12 @@ const playSongs = (songs) => ({
   };
 
 
-  export const editNewSong = (songEdit) => async (dispatch) => {
+  export const editCurrentSong = (songEdit) => async (dispatch) => {
     songEdit = JSON.stringify(songEdit);
 
     const response = await csrfFetch("/api/song/Songs", {
         method: "PUT",
-        headers: { "ContentType": "application/json" },
+        headers: {"Content-Type": "application/json" },
         body: songEdit,
     });
 
@@ -79,15 +78,17 @@ const playSongs = (songs) => ({
     };
   };
 
-  // export const deleteCurrentSong = (song) = async (dispatch) => {
-  //   const response = await csrfFetch(`/api/song/Songs/${song.id}`, {
-  //       method: "DELETE"
-  //   });
 
-  //   if (response.ok) {
-  //       dispatch(deleteSong(song));
-  //   }
-  // };
+  export const deleteCurrentSong = (song) => async (dispatch) => {
+    const response = await csrfFetch(`/api/song/Songs/${song.id}`, {
+        method: "DELETE"
+    });
+
+    if (response.ok) {
+        dispatch(deleteSong(song));
+    }
+  };
+
 
   const initialState = {};
 
@@ -107,6 +108,7 @@ const playSongs = (songs) => ({
         case DELETE_SONG:
             delete newState[action.song.id];
             return newState;
+
         default:
             return state;
     };
