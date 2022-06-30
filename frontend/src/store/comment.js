@@ -32,7 +32,6 @@ export const getAllComments = (songId) => async (dispatch) => {
 
 export const createComment = (comments) => async (dispatch) => {
     const { userId, songId, comment} = comments;
-    console.log(comments, "-------------------------------")
     const response = await csrfFetch(`/api/songs/${songId}`, {
         method: "POST",
         headers: {"Content-Type": "application/json" },
@@ -49,9 +48,18 @@ export const createComment = (comments) => async (dispatch) => {
     }
 }
 
-export const removeComment = (songId, commentId) => async(dispatch) => {
-}
+export const removeComment = (data) => async(dispatch) => {
+    const {songId, comment} = data
 
+    const response = await csrfFetch(`/api/songs/${songId}/comments/${comment.id}`, {
+        method: 'DELETE'
+    });
+
+    if (response.ok) {
+        dispatch(deleteComment(comment.id))
+    }
+
+}
 
 
 const initialState = {};
@@ -65,11 +73,12 @@ const commentReducer = (state = initialState, action) => {
             return newState;
 
         case ADD_COMMENT:
-            console.log(action, "this is the action from the reducer")
             return { ...state, [action.comment.id]: action.comment };
 
         case DELETE_COMMENT:
-            return delete { ...state, [action.id]: action.id };
+            newState = {...state}
+            delete newState[action.id];
+            return newState
 
         default:
             return state;

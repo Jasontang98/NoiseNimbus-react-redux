@@ -12,8 +12,8 @@ function EditSong() {
     const songId = useParams().id;
     const sessionUser = useSelector((state) => state.session.user);
     const song = useSelector((state) => state.songFile[songId]);
-    const comments = useSelector((state) => state.songFile[songId].Comments);
-    console.log(comments)
+    const comments = useSelector((state) => state.comment);
+
     const [title, setTitle] = useState(`${song.title}`);
     const [comment, setComment] = useState('');
 
@@ -34,6 +34,15 @@ function EditSong() {
         }
        await dispatch(createComment(data));
        setComment('')
+    }
+
+    const handleDeleteComment = async (e, comment) => {
+        e.preventDefault();
+        const data = {
+            songId,
+            comment
+        }
+        await dispatch(removeComment(data))
     }
 
     const handleSubmit = async (e) => {
@@ -60,7 +69,13 @@ function EditSong() {
                 <div>
                     {Object.values(comments).map((comment) => {
                         return (
-                            <div key={comment.id}>{comment.body}</div>
+                            <div key={comment.id}>
+                                <p>{comment?.body}</p>
+                                <p>{comment?.User?.username}</p>
+                                {comment?.User?.username === sessionUser?.username ? (
+                                    <button onClick={(e) => handleDeleteComment(e, comment)}>Delete</button>
+                                ) : <></>}
+                            </div>
                         )
                     })}
                 </div>

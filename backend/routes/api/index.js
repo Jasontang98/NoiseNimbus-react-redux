@@ -11,7 +11,7 @@ const { requireAuth } = require("../../utils/auth.js");
 
 router.use('/session', sessionRouter);
 router.use('/users', usersRouter);
-router.use("/songs", songsRouter)
+router.use("/songs", songsRouter);
 
 
 router.get(

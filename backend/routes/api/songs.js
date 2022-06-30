@@ -66,7 +66,6 @@ router.put('/:id(\\d+)', async(req, res) => {
     const newSong = await editSong.update({
         title
     });
-    console.log(newSong)
 
     if (newSong) {
         return res.json(newSong);
@@ -99,6 +98,7 @@ const validateComment = [
     check()
       .exists({ checkFalsy: true })
       .isLength({ max: 200 })
+      .isLength({ min: 0 })
       .withMessage("Max length 200"),
     handleValidationErrors,
   ];
@@ -118,7 +118,6 @@ router.get("/:id/comments", async (req, res) => {
 
 router.post("/:id(\\d+)", validateComment, async (req,res) => {
     const { userId, songId, body } = req.body;
-    console.log(req.body, "------------------------------------------")
     const createComment = await db.Comment.build({
         userId,
         songId,
