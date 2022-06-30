@@ -62,18 +62,21 @@ const playSongs = (songs) => ({
   };
 
 
-  export const editCurrentSong = (songEdit) => async (dispatch) => {
-    songEdit = JSON.stringify(songEdit);
+  export const editCurrentSong = (song) => async (dispatch) => {
 
-    const response = await csrfFetch("/api/songs", {
+    const { id, title } = song;
+
+    const response = await csrfFetch(`/api/songs/${id}`, {
         method: "PUT",
         headers: {"Content-Type": "application/json" },
-        body: songEdit,
+        body: JSON.stringify({
+          title
+        }),
     });
 
     if (response.ok) {
-        const newSongEdit = await response.json();
-        dispatch(editSong(newSongEdit));
+        const data = await response.json();
+        dispatch(editSong(data));
         return true;
     };
   };

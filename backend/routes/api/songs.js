@@ -58,13 +58,15 @@ router.post('/', singleMulterUpload('song'), validateSong, async (req,res) => {
 
 
 router.put('/:id(\\d+)', async(req, res) => {
-    const { id, songTitle } = req.body;
-    // console.log(req.body)
+    const id = parseInt(req.params.id, 10)
+    const { title } = req.body
+
     const editSong = await db.Song.findByPk(id);
 
     const newSong = await editSong.update({
-        title: songTitle
+        title
     });
+    console.log(newSong)
 
     if (newSong) {
         return res.json(newSong);
@@ -72,7 +74,7 @@ router.put('/:id(\\d+)', async(req, res) => {
 });
 
 
-router.delete('/:id', async(req, res) => {
+router.delete('/:id(\\d+)', async(req, res) => {
     const songId = req.params.id;
 
     const associations = await db.SongPlaylist.findAll({
@@ -114,9 +116,9 @@ router.get("/:id/comments", async (req, res) => {
     }
 })
 
-router.post("/:id/comments", validateComment, async (req,res) => {
-    const { userId, body, songId } = req.body;
-
+router.post("/:id(\\d+)", validateComment, async (req,res) => {
+    const { userId, songId, body } = req.body;
+    console.log(req.body, "------------------------------------------")
     const createComment = await db.Comment.build({
         userId,
         songId,
@@ -129,10 +131,10 @@ router.post("/:id/comments", validateComment, async (req,res) => {
     }
 });
 
-router.delete("/:id", async (req,res) => {
+router.delete("/:id(\\d+)/comments/:id(\\d+)", async (req,res) => {
     const id = parseInt(req.params.id, 10);
 
-    const comment = await db.Song.findByPk(id);
+    const comment = await db.Comment.findByPk(id);
 
     if (comment) {
         await comment.destroy();

@@ -20,6 +20,7 @@ module.exports = {
       },
       body: {
         allowNull: false,
+        defaultValue: '',
         type: Sequelize.TEXT
       },
       createdAt: {
