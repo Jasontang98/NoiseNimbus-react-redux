@@ -16,9 +16,9 @@ function SongsPage({ playSong }) {
 
         <div>
             <div>
-            {Object.values(songs).map((singleSong) => {
+            {Object.values(songs).map((song) => {
                 return (
-                    <div key={singleSong.id} onClick={(e) => { playSong(singleSong) }}>{singleSong.title}</div>
+                    <div key={song.id} onClick={(e) => { playSong(song) }}>{song.title}</div>
                 )
             })}
             </div>
