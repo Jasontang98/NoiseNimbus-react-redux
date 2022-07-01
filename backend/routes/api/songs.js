@@ -34,9 +34,6 @@ router.get('/', async (req,res) => {
 
 
 router.post('/', singleMulterUpload('song'), validateSong, async (req,res) => {
-    if (req.file.mimetype === "video/mp4" ||
-        req.file.mimetype === "video/mp3") {
-        }
     const url = await singlePublicFileUpload(req.file);
     const songTitle = req.body.fileName;
     const userId = req.body.userId;
@@ -118,17 +115,19 @@ router.get("/:id/comments", async (req, res) => {
 
 router.post("/:id(\\d+)", validateComment, async (req,res) => {
     const { userId, songId, body } = req.body;
-    const createComment = await db.Comment.build({
+    const createComment = await db.Comment.create({
         userId,
         songId,
         body
     })
 
-    if (createComment) {
-        const saveCreateComment = await createComment.save();
-        return res.json(saveCreateComment);
-    }
+    const findUser = await db.User.findByPk(userId);
+
+    createComment.dataValues['User']=findUser.dataValues
+
+    return res.json(createComment);
 });
+
 
 router.delete("/:id(\\d+)/comments/:id(\\d+)", async (req,res) => {
     const id = parseInt(req.params.id, 10);
