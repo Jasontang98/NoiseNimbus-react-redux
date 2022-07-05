@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { NavLink, Redirect } from "react-router-dom";
 import Navigation from "./Navigation";
 import { playAllSongs } from "../store/songFile";
-import * as sessionActions from '../store/session'
+// import * as sessionActions from '../store/session'
 
 
 function SongsPage({ playSong }) {
@@ -24,10 +24,10 @@ function SongsPage({ playSong }) {
         <>
             <div>
                 <Navigation user={sessionUser} />
-                <div className="bodyContainer">
+                <div className="bodyContainer" >
                 {Object.values(songs).map((song) => {
                     return (
-                        <div className="songPageContainer">
+                        <div className="songPageContainer" key={song.id}>
                             <NavLink className="Songredirect" to={`/songs/${song.id}`}>{song.title}</NavLink>
                             <div className="playSong" key={song.id} onClick={(e) => { playSong(song) }}></div>
                         </div>

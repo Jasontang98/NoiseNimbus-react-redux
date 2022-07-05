@@ -106,15 +106,6 @@ router.delete('/:id(\\d+)', async (req, res) => {
 
 
 // Comments
-const validateComment = [
-    check('comment')
-        .exists({ checkFalsy: true })
-        .isLength({ max: 200 })
-        .isLength({ min: 1 })
-        .withMessage("Max length 200"),
-    handleValidationErrors,
-];
-
 
 router.get("/:id/comments", async (req, res) => {
     const songId = parseInt(req.params.id, 10);
@@ -128,7 +119,7 @@ router.get("/:id/comments", async (req, res) => {
     }
 })
 
-router.post("/:id(\\d+)", validateComment, async (req, res) => {
+router.post("/:id(\\d+)", async (req, res) => {
     const { userId, songId, body } = req.body;
     const createComment = await db.Comment.create({
         userId,

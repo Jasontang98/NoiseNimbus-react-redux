@@ -66,7 +66,6 @@ function App() {
           layout="horizontal-reverse"
           showSkipControls={false}
           showJumpControls={false}
-          // autoPlayAfterSrcChange={true}
           header={`${currentSong}`}
           customAdditionalControls={[]}
         />
