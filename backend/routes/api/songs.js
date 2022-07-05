@@ -42,8 +42,10 @@ router.get('/', async (req, res) => {
 
 
 router.post('/', singleMulterUpload('song'), validateSong, async (req, res, next) => {
+    console.log(res)
     if (req.file) {
-        if (req.file.mimetype === "video/mp4" || req.file.mimetype === "video/mp3") {
+        if (req.file.mimetype === "video/mp4" || req.file.mimetype === "video/mp3" ||
+        req.file.mimetype === "audio/mpeg") {
             const url = await singlePublicFileUpload(req.file);
             const songTitle = req.body.fileName;
             const userId = req.body.userId;
