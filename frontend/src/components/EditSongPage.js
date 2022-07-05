@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory, useParams } from "react-router-dom";
-import { editCurrentSong, deleteCurrentSong } from "../store/songFile"
-import * as sessionActions from '../store/session'
-import { getAllComments, createComment, removeComment } from "../store/comment"
+import { playAllSongs, editCurrentSong, deleteCurrentSong } from "../store/songFile"
+// import * as sessionActions from '../store/session'
+import { getAllComments, createComment, removeComment, clearComments } from "../store/comment"
 import Navigation from "./Navigation";
 
 
@@ -12,20 +12,24 @@ function EditSong() {
     const dispatch = useDispatch();
     const songId = useParams().id;
     const sessionUser = useSelector((state) => state.session.user);
+
     const song = useSelector((state) => state.songFile[songId]);
-    // console.log(song)
+
     const comments = useSelector((state) => state.comment);
 
     const [title, setTitle] = useState(`${song.title}`);
     const [comment, setComment] = useState('');
-    const [isLoaded, setIsLoaded] = useState(false);
+    const [validationErrors, setValidationErrors] = useState([]);
 
     const history = useHistory();
 
     useEffect(() => {
-        dispatch(getAllComments(songId))
-        dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
-    }, [dispatch])
+        dispatch(playAllSongs(songId)).then(async () => await dispatch(getAllComments(songId)))
+
+        return () => {
+            dispatch(clearComments())
+        }
+    }, [dispatch, songId])
 
     if (!sessionUser) return <Redirect to='/' />;
 
@@ -51,11 +55,22 @@ function EditSong() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setValidationErrors([]);
+        const errors = [];
+
+        if (title.length > 20) errors.push('Title is too long');
+        if (title.length < 1) errors.push('Must provide a title')
+
+        if (errors.length) {
+            setValidationErrors(errors);
+            return;
+        }
 
         const data = {
             id: song?.id,
             title
         };
+
 
         await dispatch(editCurrentSong(data));
         history.push(`/songs`)
@@ -71,49 +86,59 @@ function EditSong() {
         <>
             <div>
                 <Navigation user={sessionUser} />
-                <div>
-                    <p>{song?.title}</p>
+                <div className="commentForm">
                     <div>
-                        {Object.values(comments).map((comment) => {
-                            return (
-                                <div key={comment.id}>
-                                    <p>{comment.body}</p>
-                                    <p>{comment.User.username}</p>
-                                    {comment.User.username === sessionUser.username ? (
-                                        <button onClick={(e) => handleDeleteComment(e, comment)}>Delete</button>
-                                    ) : <></>}
-                                </div>
-                            )
-                        })}
-                    </div>
-                    <form onSubmit={handleComment}>
-                        <textarea
-                            placeholder="Add a comment"
-                            value={comment}
-                            required
-                            onChange={(e) => setComment(e.target.value)}
-                        />
-                        <button type="submit">Submit</button>
-                    </form>
-                    <div>
-                        {song.User.username === sessionUser.username ? (
-                            <div>
-                                <form onSubmit={handleSubmit}>
-                                    <input
-                                        type="text"
-                                        value={title}
-                                        onChange={(e) => setTitle(e.target.value)}
-                                    />
-                                    <button type="submit">Submit</button>
-                                </form>
+                        <p id="songTitle">{song?.title}</p>
+                        <div>
+                            {Object.values(comments).map((comment) => {
+                                return (
+                                    <div className="commentBox" key={comment.id}>
+                                        <p id="commentBody">{comment.body}</p>
+                                        <p>{comment.User.username}</p>
+                                        {comment.User.username === sessionUser.username ? (
+                                            <button className="button" onClick={(e) => handleDeleteComment(e, comment)}>Delete</button>
+                                        ) : <></>}
+                                    </div>
+                                )
+                            })}
+                        </div>
+                        <form onSubmit={handleComment}>
+                            <textarea
+                                id="commentSubmit"
+                                value={comment}
+                                required
+                                onChange={(e) => setComment(e.target.value)}
+                            />
+                            <button className="button" type="submit">Submit</button>
+                        </form>
+                        <div>
+                            {song?.User?.username === sessionUser?.username ? (
                                 <div>
-                                    <button
-                                        onClick={(e) => handleDelete(song)}
-                                    >Delete
-                                    </button>
+                                    <div id="changeNameTitle">
+                                        Update Name
+                                    </div>
+                                    <form onSubmit={handleSubmit}>
+                                        {validationErrors.map((error ,idx) => (
+                                            <div className="uploadError" key={idx}>{error}</div>
+                                        ))}
+                                        <input
+                                            id="nameChange"
+                                            type="text"
+                                            value={title}
+
+                                            onChange={(e) => setTitle(e.target.value)}
+                                        />
+                                        <button className="button" type="submit">Submit</button>
+                                    </form>
+                                    <div>
+                                        <button
+                                            className="button" onClick={(e) => handleDelete(song)}
+                                        >Delete
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
-                        ) : <></>}
+                            ) : <></>}
+                        </div>
                     </div>
                 </div>
             </div>

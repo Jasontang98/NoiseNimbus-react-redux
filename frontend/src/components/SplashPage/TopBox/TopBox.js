@@ -13,9 +13,8 @@ function TopBox() {
         <h2 className="Title">NoiseNimbus</h2>
       </div>
       <div>
-        <h2 id="body-text">Discover more with NoiseNimbus Go+</h2>
-        <p id="p-text">NoiseNimbus Go+ lets you listen offline, ad-free, with over 150 million
-          tracks — and growing.</p>
+        <h2 id="body-text">Discover more with NoiseNimbus ultra.</h2>
+        <p id="p-text">NoiseNimbus ultra lets you listen offline and ad-free.</p>
       </div>
     </div>
   );

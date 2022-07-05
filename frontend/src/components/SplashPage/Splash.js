@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import TopBox from "./TopBox/TopBox";
-import Trending from "./Trending";
-import AboutMe from "./About";
+import SplashSongs from "./splashSongs";
+// import AboutMe from "./About";
 
 import { playAllSongs } from "../../store/songFile";
 import { useDispatch } from "react-redux";
@@ -19,8 +19,8 @@ const Splash = ({playSong}) => {
         isLoaded && (
             <div className="topLine">
                 <TopBox />
-                <Trending playSong={playSong}/>
-                <AboutMe />
+                <SplashSongs playSong={playSong}/>
+                {/* <AboutMe /> */}
             </div>
         )
     )

@@ -3,19 +3,27 @@ const db = require('../../db/models');
 const router = express.Router();
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
-const { singlePublicFileUpload, singleMulterUpload  } = require('../../awsS3');
+const { singlePublicFileUpload, singleMulterUpload } = require('../../awsS3');
 
 
 const validateSong = [
     check("fileName")
-      .exists({ checkFalsy: true })
-      .isLength({ max: 50 })
-      .withMessage("Song title is too long"),
+        .exists({ checkFalsy: true })
+        .isLength({ max: 20 })
+        .withMessage("Song title is too long"),
     handleValidationErrors,
-  ];
+];
 
+const validateEditSong = [
+    check('title')
+        .exists({checkFalsy: true})
+        .isLength({ min: 1})
+        .isLength({ max: 20})
+        .withMessage("Song title is too long"),
+    handleValidationErrors,
+]
 
-router.get('/:id(\\d+)', async(req,res) => {
+router.get('/:id(\\d+)', async (req, res) => {
     const id = parseInt(req.params.id, 10)
 
     const oneSong = await db.Song.findOne({
@@ -25,36 +33,43 @@ router.get('/:id(\\d+)', async(req,res) => {
     return res.json(oneSong)
 })
 
-router.get('/', async (req,res) => {
+router.get('/', async (req, res) => {
     const songs = await db.Song.findAll({
-        include: [{model: db.User}, {model: db.Comment}]
+        include: [{ model: db.User }, { model: db.Comment }]
     });
     return res.json(songs);
 });
 
 
-router.post('/', singleMulterUpload('song'), validateSong, async (req,res) => {
-    const url = await singlePublicFileUpload(req.file);
-    const songTitle = req.body.fileName;
-    const userId = req.body.userId;
+router.post('/', singleMulterUpload('song'), validateSong, async (req, res) => {
+    if (req.file) {
+        if (req.file.mimetype === "video/mp4" || req.file.mimetype === "video/mp3") {
+            const url = await singlePublicFileUpload(req.file);
+            const songTitle = req.body.fileName;
+            const userId = req.body.userId;
 
-    const song = await db.Song.build({
-        title: songTitle,
-        userId,
-        url
-    });
+            const song = await db.Song.build({
+                title: songTitle,
+                userId,
+                url
+            });
 
-    if (song) {
-        await song.save();
-        return res.json(song);
-    } else {
-        const err = new Error("Invalid File Type");
-        next(err);
+            if (song) {
+                await song.save();
+                return res.json(song);
+            } else {
+                const err = new Error("Invalid File Type");
+                next(err);
+            }
+        } else {
+            const err = new Error("Please provide a valid file.")
+            next(err)
+        }
     }
 });
 
 
-router.put('/:id(\\d+)', async(req, res) => {
+router.put('/:id(\\d+)',validateEditSong, async (req, res) => {
     const id = parseInt(req.params.id, 10)
     const { title } = req.body
 
@@ -70,7 +85,7 @@ router.put('/:id(\\d+)', async(req, res) => {
 });
 
 
-router.delete('/:id(\\d+)', async(req, res) => {
+router.delete('/:id(\\d+)', async (req, res) => {
     const songId = req.params.id;
 
     const associations = await db.SongPlaylist.findAll({
@@ -86,19 +101,19 @@ router.delete('/:id(\\d+)', async(req, res) => {
     const deleteSong = await db.Song.findByPk(songId);
 
     await deleteSong.destroy();
-    return res.json({ message: "Deleted"});
+    return res.json({ message: "Deleted" });
 });
 
 
 // Comments
 const validateComment = [
-    check()
-      .exists({ checkFalsy: true })
-      .isLength({ max: 200 })
-      .isLength({ min: 0 })
-      .withMessage("Max length 200"),
+    check('comment')
+        .exists({ checkFalsy: true })
+        .isLength({ max: 200 })
+        .isLength({ min: 1 })
+        .withMessage("Max length 200"),
     handleValidationErrors,
-  ];
+];
 
 
 router.get("/:id/comments", async (req, res) => {
@@ -113,7 +128,7 @@ router.get("/:id/comments", async (req, res) => {
     }
 })
 
-router.post("/:id(\\d+)", validateComment, async (req,res) => {
+router.post("/:id(\\d+)", validateComment, async (req, res) => {
     const { userId, songId, body } = req.body;
     const createComment = await db.Comment.create({
         userId,
@@ -123,13 +138,13 @@ router.post("/:id(\\d+)", validateComment, async (req,res) => {
 
     const findUser = await db.User.findByPk(userId);
 
-    createComment.dataValues['User']=findUser.dataValues
+    createComment.dataValues['User'] = findUser.dataValues
 
     return res.json(createComment);
 });
 
 
-router.delete("/:id(\\d+)/comments/:id(\\d+)", async (req,res) => {
+router.delete("/:id(\\d+)/comments/:id(\\d+)", async (req, res) => {
     const id = parseInt(req.params.id, 10);
 
     const comment = await db.Comment.findByPk(id);

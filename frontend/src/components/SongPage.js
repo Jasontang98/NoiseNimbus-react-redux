@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink, Redirect } from "react-router-dom";
 import Navigation from "./Navigation";
@@ -24,12 +24,12 @@ function SongsPage({ playSong }) {
         <>
             <div>
                 <Navigation user={sessionUser} />
-                <div>
+                <div className="bodyContainer">
                 {Object.values(songs).map((song) => {
                     return (
-                        <div>
-                            <NavLink to={`/songs/${song.id}`}>{song.title}</NavLink>
-                            <div key={song.id} onClick={(e) => { playSong(song) }}>{song.title}</div>
+                        <div className="songPageContainer">
+                            <NavLink className="Songredirect" to={`/songs/${song.id}`}>{song.title}</NavLink>
+                            <div className="playSong" key={song.id} onClick={(e) => { playSong(song) }}></div>
                         </div>
                         )
                     })}

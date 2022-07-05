@@ -1,8 +1,9 @@
 import { csrfFetch } from "./csrf";
 
-const GET_COMMENTS = "/api/GETCOMMENTS";
-const ADD_COMMENT = "/api/ADDCOMMENT";
-const DELETE_COMMENT = "/api/DELETECOMMENT";
+const GET_COMMENTS = "comments/getComments";
+const ADD_COMMENT = "comments/addComment";
+const DELETE_COMMENT = "comments/deleteComment";
+const CLEAR_STATE = "comments/clearState"
 
 const getComments = (comments) => ({
     type: GET_COMMENTS,
@@ -18,6 +19,12 @@ const deleteComment = (id) => ({
     type: DELETE_COMMENT,
     id
 })
+
+export const clearComments = () => {
+    return {
+        type: CLEAR_STATE
+    }
+}
 
 export const getAllComments = (songId) => async (dispatch) => {
     const response = await csrfFetch(`/api/songs/${songId}/comments`, {
@@ -71,6 +78,10 @@ const commentReducer = (state = initialState, action) => {
             newState = {...state};
             action.comments.forEach(comment => (newState[comment.id] = comment));
             return newState;
+
+        case CLEAR_STATE:
+            const clearState = {};
+                return clearState
 
         case ADD_COMMENT:
             newState = {...state}

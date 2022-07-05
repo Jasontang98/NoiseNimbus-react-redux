@@ -13,10 +13,9 @@ function UploadSong() {
     const [file, setFile] = useState(null);
     const [fileName, setFileName] = useState("");
     const [errors, setErrors] = useState([]);
-    const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
-        dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
+        dispatch(sessionActions.restoreUser());
     }, [dispatch]);
 
     if (!sessionUser) return <Redirect to='/' />;
@@ -59,32 +58,35 @@ function UploadSong() {
         <>
             <div>
                 <Navigation user={sessionUser} />
-                <div>
+                <div className="uploadForm">
                     <form className="songForm" onSubmit={handleSubmit}>
                         {errors.map((error) => (
-                            <div key={error}>{error}</div>
+                            <div className="uploadError" key={error}>{error}</div>
                         ))}
-                        <label>
+                        <div className="uploadTitle">
                             Song Title
                             <input
+                                id="uploadTitleName"
                                 type="text"
                                 value={fileName}
                                 required
                                 onChange={(e) => setFileName(e.target.value)}
                             />
-                        </label>
+                        </div>
                         <div>
-                            <div>Select a Song</div>
-                            <p>Please add a mp3/mp4</p>
+                            <div id="select">Select a Song</div>
                             <input
+                                className="button"
+                                id="songSelected"
                                 type="file"
                                 name="song"
                                 onChange={handleChange}
                                 accept=".mp3, .mp4"
                             />
+                            <p id="select">Please provide a mp3/mp4</p>
                         </div>
                         <div>
-                            <button type="submit">
+                            <button className="button" type="submit">
                                 Submit
                             </button>
                         </div>

@@ -3,6 +3,8 @@ body {
     margin: auto;
     font-family: 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     background-color: #f2f2f2;
+    overflow-y: scroll;
+    margin-bottom: 65px;
 }
 
 .button {
@@ -33,9 +35,13 @@ body {
     width: 100%;
   }
 
+  .rhap_container {
+    border: 1px solid black;
+    color: #89c7e7;
+  }
+
 
 /* Splash Page - top box*/
-
 .topLine {
     border-top: 4px solid #fff67a;
     width: 1240px;
@@ -62,21 +68,21 @@ body {
   }
 
 .Title {
-    transform: translate(450px, -150px);
+    transform: translate(225px, -150px);
     font-size: 50px;
     color: #fff67a;
     text-shadow: 2px 2px 3px black;
 }
 
 #body-text {
-    transform: translate(110px, 155px);
+    transform: translate(-100px, 155px);
     color: #fff67a;
     font-size: 20px;
     font-weight: 900;
 }
 
 #p-text {
-    transform: translate(-150px, 155px);
+    transform: translate(-160px, 155px);
     color: #fff67a;
     font-size: 20px;
     font-weight: 900;
@@ -173,9 +179,278 @@ body {
 
 
 /* Trending */
+.song-box {
+  background-color: white;
+  height: 400px;
+  overflow-y: scroll;
+}
 
+.playSong {
+  background-image: url("./images/play.png");
+  height: 30px;
+  width: 30px;
+  display: flex;
+  flex-direction: flex-end;
+  background-size: cover;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.songList {
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  margin-left: 20px;
+  font-family: 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-weight: bold;
+  color: #89c7e7;
+  text-shadow: 1px 1px 1px black;
+}
 
 /* NavBar */
 .Nav-bar {
   background-color: #89c7e7;
+  display: flex;
+  height: 40px;
+
+}
+
+.profile-dropdown {
+  display: flex;
+  flex-direction: row;
+}
+
+#profileUser {
+  font-weight: bold;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  font-family: 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+#profileUserEmail{
+  font-weight: bold;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  font-family: 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+#logout {
+  background-color: #89c7e7;
+  border: 2px solid black;
+  box-shadow: 2px 2px black;
+  color: white;
+  border-radius: 3px;
+  margin-left: 10px;
+  margin-bottom: 2px;
+  height: 30px;
+  margin-top: 4px;
+}
+
+#logout:active {
+  background: #89c7e7;
+  box-shadow: inset 0px 0px 4px black;
+   outline: none;
+}
+
+#logout:hover {
+  cursor: pointer;
+}
+
+.songNav {
+  width: 40%;
+  margin-left: 20px;
+}
+
+#songNavName {
+  text-decoration: none;
+  font-family: 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+  color: black;
+}
+
+
+.uploadNav {
+  width: 40%;
+}
+
+#uploadNavName{
+  text-decoration: none;
+  font-family: 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+  color: black;
+}
+
+.songNav:hover {
+  text-shadow: 2px 2px #fff67a;
+}
+
+.uploadNav:hover {
+  text-shadow: 2px 2px #fff67a;
+}
+
+.profile-button {
+  font-size: 24px;
+  background-color: transparent;
+  text-decoration: none;
+  border: none;
+}
+
+
+
+/* Song Page */
+.Songredirect {
+  text-decoration: none;
+  color: black;
+  font-family: 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-size:20px;
+  font-weight: bold;
+  overflow-wrap: break-word;
+  inline-size: 150px;
+}
+
+.Songredirect:hover {
+  text-shadow: 2px 2px #89c7e7;
+}
+
+.songPageContainer {
+  border: 2px solid #89c7e7;
+  border-radius: 5px;
+  display: flex;
+  height: 150px;
+  width: 150px;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: space-evenly;
+  margin: 11px;
+  background-color: white;
+}
+
+.bodyContainer {
+  width: 1240px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+
+
+/* comments and edit */
+#songTitle {
+  color: black;
+  font-family: 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.commentForm {
+  padding-left: 20px;
+  padding-right: 20px;
+  border:2px solid black;
+  border-radius: 5px;
+  margin-top: 20px;
+  padding-bottom: 20px;
+  margin-bottom: 100px;
+}
+
+.commentBox {
+  border:2px solid #89c7e7;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-family: 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  padding: 10px;
+  background-color: #89c7e7;
+}
+
+#commentBody {
+  width: 1150px;
+  inline-size: 1150px;
+  overflow-wrap: break-word;
+}
+
+#commentSubmit {
+  border: 1px solid #89c7e7;
+  width: 1189px;
+  height: 110px;
+  border-radius: 5px;
+  font-family: 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-weight: bold;
+}
+
+#changeNameTitle{
+  margin-top: 20px;
+  font-family: 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-weight: bold;
+}
+#nameChange {
+  border: 1px solid #89c7e7;
+  width: 200px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  height: 30px;
+  border-radius: 5px;
+  font-family: 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-weight: bold;
+}
+
+
+/* Upload page */
+.uploadForm {
+  padding-left: 20px;
+  padding-right: 20px;
+  border:2px solid black;
+  border-radius: 5px;
+  margin-top: 200px;
+  padding-bottom: 20px;
+  margin-left: 400px;
+  margin-right: 400px;
+  background-color: white;
+}
+
+.uploadTitle {
+  font-size: 30px;
+  font-weight: bold;
+  font-family: 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  margin-top: 10px;
+}
+
+#uploadTitleName {
+  font-weight: bold;
+  font-family: 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  margin-left: 20px;
+  width: 210px;
+  font-size: 18px;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.uploadError {
+  color: #89c7e7;
+  font-size: 16px;
+  margin-top: 20px;
+  font-family: 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+#select {
+  font-size: 16px;
+  font-family: 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+#songSelected {
+  font-size: 16px;
+  font-family: 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-weight: bold;
+
+}
+
+::file-selector-button {
+  display: none;
 }
