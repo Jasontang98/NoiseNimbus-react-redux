@@ -6,7 +6,7 @@
   <br>clone: SoundCloud</br>
 </h3>
 
-<h4>Listen the the hottest and freshest songs!</h4>
+<h4>Listen to the hottest and freshest songs!</h4>
 
 ## Link to Live Site
 https://appacademy-noisenimbus.herokuapp.com/
@@ -33,9 +33,9 @@ Running the command `npm start` from the backend and frontend folders will start
 ## Splash Page
 ![Screenshot 2022-07-04 211608](https://user-images.githubusercontent.com/96891670/177248322-13da273f-10bb-4ff5-b78b-dd4e4829ebfa.png)
 
-## Login and SignUp
-![Screenshot 2022-07-04 211651](https://user-images.githubusercontent.com/96891670/177248411-fc4f6306-c3ef-4a24-865d-e1965a9d662b.png)
-![Screenshot 2022-07-04 211710](https://user-images.githubusercontent.com/96891670/177248434-43880f61-870d-42fb-ac3e-40768ebc9d25.png)
+## Login and Sign Up
+![Screenshot 2022-07-04 212308](https://user-images.githubusercontent.com/96891670/177249018-6c73a9e5-79e9-457c-b1d6-212b4b34bbcd.png)
+![Screenshot 2022-07-04 212217](https://user-images.githubusercontent.com/96891670/177249039-899d6c25-8731-450b-b97f-6cd37eccdca2.png)
 
 ## Songs Page
 ![Screenshot 2022-07-04 211754](https://user-images.githubusercontent.com/96891670/177248482-3cda805d-7f65-4fbb-818a-6c105b93e956.png)
